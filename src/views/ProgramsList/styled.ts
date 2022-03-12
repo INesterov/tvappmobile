@@ -2,13 +2,13 @@ import styled from 'styled-components/native';
 import {HelpNote} from '../../uikit';
 
 export const Container = styled.View`
-  padding: 20px 20px 0;
+  padding-top: 20px;
+  justify-content: space-between;
 `;
 
 export const FiltersWrap = styled.ScrollView`
   flex-direction: row;
-  padding: 16px 0;
-  margin-top: 8px;
+  padding: 16px 20px 8px 20px;
 `;
 
 export const FilterItem = styled(HelpNote)`
@@ -17,4 +17,24 @@ export const FilterItem = styled(HelpNote)`
   &:last-child {
     margin-right: 0;
   }
+`;
+
+export const Toolbar = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8px;
+  justify-content: space-between;
+  padding: 0 20px;
+`;
+
+export const List = styled.FlatList`
+  height: 74%;
+`;
+
+export const DaysWrap = styled.ScrollView`
+  flex-direction: row;
+  background-color: #181a26;
+  height: 100px;
+  width: 100%;
+  margin-top: 24px;
 `;
