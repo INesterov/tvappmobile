@@ -28,6 +28,7 @@ export const Head = styled.View`
   flex-direction: row;
   align-items: flex-end;
   margin-bottom: 4px;
+  width: 80%;
 `;
 
 export const TitleWrap = styled.View`

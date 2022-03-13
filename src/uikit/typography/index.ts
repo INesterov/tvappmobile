@@ -20,4 +20,5 @@ export const H2 = styled.Text`
 export const SmallText = styled.Text`
   font-size: 12px;
   color: #727c8e;
+  font-weight: bold;
 `;

@@ -6,6 +6,7 @@ import {
   subDays,
   startOfDay,
 } from 'date-fns';
+import ruLocale from 'date-fns/locale/ru';
 
 type Day = {
   value: string;
@@ -22,7 +23,7 @@ export const getDays = (): Day[] => {
 
   for (let i = 0; i <= 6; i++) {
     const day = addDays(startWeek, i);
-    const title = format(addDays(day, 1), 'EEE');
+    const title = format(addDays(day, 1), 'EEE', {locale: ruLocale});
     const date = addDays(day, 1);
     const value = String(getUnixTime(date));
 

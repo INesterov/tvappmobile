@@ -1,14 +1,20 @@
 import React from 'react';
 import {Pressable, Image} from 'react-native';
+import {fromUnixTime, format} from 'date-fns';
+import ruLocale from 'date-fns/locale/ru';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {channelsMap} from '../../../../constants/channels';
 import {Programs_programs} from '../../../../gql/types';
 import {H2, SmallText} from '../../../../uikit/';
 import {ItemWrap, ProgramInfo, Channel, Head, TitleWrap} from './styled';
 
 export const ProgramItem = ({item}: {item: Programs_programs}): JSX.Element => {
-  const {title, photo} = item;
+  const {title, photo, channel_id, from} = item;
   const photos = photo?.split(',');
   const mainPhoto = photos ? photos[0] : '';
+  const date = fromUnixTime(Number(from));
+  const day = format(date, 'd MMMM', {locale: ruLocale});
+  const time = format(date, 'HH:mm', {locale: ruLocale});
 
   return (
     <ItemWrap>
@@ -26,9 +32,11 @@ export const ProgramItem = ({item}: {item: Programs_programs}): JSX.Element => {
         <TitleWrap>
           <Head>
             <H2 numberOfLines={1}>{title}</H2>
-            <Channel>ТНТ</Channel>
+            <Channel>{channelsMap[channel_id]}</Channel>
           </Head>
-          <SmallText>Сегодня в 17:30 • Сезон 2. 28-я серия</SmallText>
+          <SmallText>
+            {day} • в {time}
+          </SmallText>
         </TitleWrap>
         <Pressable>
           <Icon name="add-task" size={36} color="#5B5E6F" />
