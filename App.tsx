@@ -10,8 +10,16 @@
 
 import React from 'react';
 import {SafeAreaView} from 'react-native';
+import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {Provider} from 'react-redux';
+import {store} from './src/store';
 
 import {Router} from './src/routes';
+
+const client = new ApolloClient({
+  uri: 'https://tvapp-back.herokuapp.com/graphql',
+  cache: new InMemoryCache(),
+});
 
 const App = () => {
   const backgroundStyle = {
@@ -21,7 +29,11 @@ const App = () => {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <Router />
+      <ApolloProvider client={client}>
+        <Provider store={store}>
+          <Router />
+        </Provider>
+      </ApolloProvider>
     </SafeAreaView>
   );
 };

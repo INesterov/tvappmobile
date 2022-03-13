@@ -29,3 +29,7 @@ export const Head = styled.View`
   align-items: flex-end;
   margin-bottom: 4px;
 `;
+
+export const TitleWrap = styled.View`
+  margin-right: 8px;
+`;

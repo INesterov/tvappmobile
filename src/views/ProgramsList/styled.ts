@@ -27,10 +27,6 @@ export const Toolbar = styled.View`
   padding: 0 20px;
 `;
 
-export const List = styled.FlatList`
-  height: 74%;
-`;
-
 export const DaysWrap = styled.ScrollView`
   flex-direction: row;
   background-color: #181a26;

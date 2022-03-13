@@ -1,24 +1,35 @@
-import {startOfWeek, addDays, format} from 'date-fns';
+import {
+  startOfWeek,
+  addDays,
+  format,
+  getUnixTime,
+  subDays,
+  startOfDay,
+} from 'date-fns';
 
 type Day = {
-  value: number;
+  value: string;
   title: string;
   date: Date;
 };
 
 export const getDays = (): Day[] => {
-  const today = new Date();
-  const startWeek = addDays(startOfWeek(today), 1);
+  const today = startOfDay(new Date());
+  const prevDay = subDays(today, 1);
+  const dayNumber = today.getDay();
+  const startWeek = startOfWeek(dayNumber === 0 ? prevDay : today);
   const days = [];
 
   for (let i = 0; i <= 6; i++) {
     const day = addDays(startWeek, i);
-    const title = format(day, 'EEE');
+    const title = format(addDays(day, 1), 'EEE');
+    const date = addDays(day, 1);
+    const value = String(getUnixTime(date));
 
     days.push({
-      value: i,
+      value,
       title,
-      date: day,
+      date,
     });
   }
 

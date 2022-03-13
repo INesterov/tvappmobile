@@ -1,33 +1,26 @@
 import React from 'react';
-import {View, Pressable} from 'react-native';
+import {View, Pressable, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useQuery} from '@apollo/client';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store';
+import {ProgramsVariables, Programs} from '../../gql/types';
+import {programsQuery} from '../../gql/queries/getProgramsQuery.graphql';
 import {H1} from '../../uikit';
-import {Program} from '../../types/program';
 import {ProgramItem} from './components/ProgramItem';
 import {DaySelect} from './components/DaySelect';
-import {
-  Container,
-  FiltersWrap,
-  FilterItem,
-  Toolbar,
-  List,
-  DaysWrap,
-} from './styled';
+import {Container, FiltersWrap, FilterItem, Toolbar, DaysWrap} from './styled';
 
-const programList: Program[] = [
-  {id: '1', name: 'aaaaaa'},
-  {id: '2', name: 'aaaaaa'},
-  {id: '3', name: 'aaaaaa'},
-  {id: '4', name: 'aaaaaa'},
-  {id: '5', name: 'aaaaaa'},
-  {id: '6', name: 'aaaaaa'},
-  {id: '7', name: 'aaaaaa'},
-  {id: '8', name: 'aaaaaa'},
-  {id: '9', name: 'aaaaaa'},
-  {id: '10', name: 'aaaaaa'},
-];
+export const ProgramList = (): JSX.Element | null => {
+  const selectedDay = useSelector((state: RootState) => state.filters.day);
+  const {data} = useQuery<Programs, ProgramsVariables>(programsQuery, {
+    variables: {day: selectedDay, type: [], channelId: []},
+  });
 
-export const ProgramList = (): JSX.Element => {
+  if (!data?.programs) {
+    return null;
+  }
+
   return (
     <View>
       <Container>
@@ -60,10 +53,14 @@ export const ProgramList = (): JSX.Element => {
           <FilterItem>Реалити шоу</FilterItem>
           <FilterItem>Ужасы</FilterItem>
         </FiltersWrap>
-        <List
-          data={programList}
-          renderItem={ProgramItem}
-          keyExtractor={item => item.id}
+        <FlatList
+          data={data.programs}
+          renderItem={({item}) => <ProgramItem item={item} />}
+          keyExtractor={item => item._id}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            height: '74%',
+          }}
         />
         <DaysWrap horizontal>
           <DaySelect />
