@@ -11,7 +11,7 @@ export const DaySelect = (): JSX.Element => {
   const days = getDays();
   const dispatch = useDispatch();
   const selectedDay = useSelector((state: RootState) => state.filters.day);
-
+  console.log('selectedDay', selectedDay);
   return (
     <>
       {days.map(day => (

@@ -5,6 +5,8 @@ export interface FiltersState {
   day: string;
   channelId: string[];
   type: string[];
+  typesList: string[];
+  channelsList: string[];
 }
 
 const today = getUnixTime(startOfDay(new Date()));
@@ -13,6 +15,8 @@ const initialState: FiltersState = {
   day: String(today),
   channelId: [],
   type: [],
+  typesList: [],
+  channelsList: [],
 };
 
 export const filtersSlice = createSlice({
@@ -28,7 +32,14 @@ export const filtersSlice = createSlice({
     setTypes: (state, action: PayloadAction<string[]>) => {
       state.type = action.payload;
     },
+    setChannelsList: (state, action: PayloadAction<string[]>) => {
+      state.channelsList = action.payload;
+    },
+    setTypesList: (state, action: PayloadAction<string[]>) => {
+      state.typesList = action.payload;
+    },
   },
 });
 
-export const {setDay, setChannels, setTypes} = filtersSlice.actions;
+export const {setDay, setChannels, setTypes, setChannelsList, setTypesList} =
+  filtersSlice.actions;
