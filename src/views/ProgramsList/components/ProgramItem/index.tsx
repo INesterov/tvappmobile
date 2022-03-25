@@ -1,5 +1,6 @@
 import React from 'react';
 import {Pressable, Image} from 'react-native';
+import {Link} from 'react-router-native';
 import {fromUnixTime, format} from 'date-fns';
 import ruLocale from 'date-fns/locale/ru';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -9,7 +10,7 @@ import {H2, SmallText} from '../../../../uikit/';
 import {ItemWrap, ProgramInfo, Channel, Head, TitleWrap} from './styled';
 
 export const ProgramItem = ({item}: {item: Programs_programs}): JSX.Element => {
-  const {title, photo, channel_id, from} = item;
+  const {title, photo, channel_id, from, _id} = item;
   const photos = photo?.split(',');
   const mainPhoto = photos ? photos[0] : '';
   const date = fromUnixTime(Number(from));
@@ -31,7 +32,9 @@ export const ProgramItem = ({item}: {item: Programs_programs}): JSX.Element => {
       <ProgramInfo>
         <TitleWrap>
           <Head>
-            <H2 numberOfLines={1}>{title}</H2>
+            <Link to={`/program/${_id}`}>
+              <H2 numberOfLines={1}>{title}</H2>
+            </Link>
             <Channel>{channelsMap[channel_id]}</Channel>
           </Head>
           <SmallText>

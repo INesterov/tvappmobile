@@ -18,7 +18,7 @@ import {Container, FiltersWrap, FilterItem, Toolbar, DaysWrap} from './styled';
 export const ProgramList = (): JSX.Element | null => {
   const selectedDay = useSelector((state: RootState) => state.filters.day);
   const channelId = useSelector((state: RootState) => state.filters.channelId);
-  const types = useSelector((state: RootState) => state.filters.type);
+  const type = useSelector((state: RootState) => state.filters.type);
   const dispatch = useDispatch();
   const [isVisibleSettingsModal, setVisibleSettingsModal] =
     React.useState(false);
@@ -28,7 +28,7 @@ export const ProgramList = (): JSX.Element | null => {
     {locale: ruLocale},
   );
   const {data} = useQuery<Programs, ProgramsVariables>(programsQuery, {
-    variables: {day: selectedDay, type: types, channelId},
+    variables: {day: selectedDay, type, channelId},
   });
 
   React.useEffect(() => {

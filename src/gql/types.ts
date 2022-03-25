@@ -2,6 +2,30 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: Program
+// ====================================================
+
+export interface Program_program {
+  title: string;
+  photo: string | null;
+  description: string;
+  channel_id: string;
+  type: string | null;
+  from: string;
+}
+
+export interface Program {
+  program: Program_program;
+}
+
+export interface ProgramVariables {
+  id: string;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: Programs
 // ====================================================
 
