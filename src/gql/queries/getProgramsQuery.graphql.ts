@@ -16,10 +16,5 @@ export const programsQuery = gql`
       to
       _id
     }
-    types
-    channels {
-      id
-      title
-    }
   }
 `;

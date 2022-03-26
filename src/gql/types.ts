@@ -2,6 +2,34 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: UpdatePrograms
+// ====================================================
+
+export interface UpdatePrograms {
+  updatePrograms: string;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: Filters
+// ====================================================
+
+export interface Filters_channels {
+  id: string;
+  title: string;
+}
+
+export interface Filters {
+  types: string[] | null;
+  channels: Filters_channels[];
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: Program
 // ====================================================
 
@@ -44,15 +72,8 @@ export interface Programs_programs {
   _id: string;
 }
 
-export interface Programs_channels {
-  id: string;
-  title: string;
-}
-
 export interface Programs {
   programs: Programs_programs[];
-  types: string[] | null;
-  channels: Programs_channels[];
 }
 
 export interface ProgramsVariables {

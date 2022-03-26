@@ -26,7 +26,7 @@ export const ProgramItem = ({item}: {item: Programs_programs}): JSX.Element => {
           height: 375,
         }}
         source={{
-          uri: `http://tvget.ru/tvgate/mv/zh9d3x6v/progimg/${mainPhoto}`,
+          uri: `https://tvget.ru/tvgate/mv/zh9d3x6v/progimg/${mainPhoto}`,
         }}
       />
       <ProgramInfo>

@@ -1,27 +1,34 @@
 import React from 'react';
-import {View, Pressable, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useQuery} from '@apollo/client';
+import {useQuery, useMutation} from '@apollo/client';
 import {useSelector, useDispatch} from 'react-redux';
 import {format, fromUnixTime} from 'date-fns';
 import ruLocale from 'date-fns/locale/ru';
-import {setChannelsList, setTypesList} from '../../store/filters/filtersSlice';
+import {setModal} from '../../store/modals/modalSlice';
+import {ModalEnum} from '../../store/modals/type';
 import {RootState} from '../../store';
-import {ProgramsVariables, Programs} from '../../gql/types';
+import {ProgramsVariables, Programs, UpdatePrograms} from '../../gql/types';
 import {programsQuery} from '../../gql/queries/getProgramsQuery.graphql';
+import {updatePrograms} from '../../gql/mutations/updateProgramMutation.graphql';
 import {H1} from '../../uikit';
 import {ProgramItem} from './components/ProgramItem';
 import {DaySelect} from './components/DaySelect';
-import {SettingsModal} from './components/SettingsModal';
-import {Container, FiltersWrap, FilterItem, Toolbar, DaysWrap} from './styled';
+import {
+  Container,
+  FiltersWrap,
+  FilterItem,
+  Toolbar,
+  DaysWrap,
+  ButtonsWrap,
+  Button,
+} from './styled';
 
 export const ProgramList = (): JSX.Element | null => {
   const selectedDay = useSelector((state: RootState) => state.filters.day);
   const channelId = useSelector((state: RootState) => state.filters.channelId);
   const type = useSelector((state: RootState) => state.filters.type);
   const dispatch = useDispatch();
-  const [isVisibleSettingsModal, setVisibleSettingsModal] =
-    React.useState(false);
   const formattedSelectedDay = format(
     fromUnixTime(Number(selectedDay)),
     'd MMMM',
@@ -31,27 +38,21 @@ export const ProgramList = (): JSX.Element | null => {
     variables: {day: selectedDay, type, channelId},
   });
 
-  React.useEffect(() => {
-    const channels = data?.channels;
-    const types = data?.types ?? [];
-    const channelsList = channels?.map(channel => channel.id) ?? [];
-
-    dispatch(setChannelsList(channelsList));
-    dispatch(setTypesList(types));
-  }, [data?.channels, data?.types, dispatch]);
+  const [update] = useMutation<UpdatePrograms, null>(updatePrograms);
 
   return (
     <View>
-      <SettingsModal
-        isVisible={isVisibleSettingsModal}
-        onClose={() => setVisibleSettingsModal(false)}
-      />
       <Container>
         <Toolbar>
           <H1>{formattedSelectedDay}</H1>
-          <Pressable onTouchEnd={() => setVisibleSettingsModal(true)}>
-            <Icon name="settings" size={24} color="#5B5E6F" />
-          </Pressable>
+          <ButtonsWrap>
+            <Button onTouchEnd={() => dispatch(setModal(ModalEnum.SETTING))}>
+              <Icon name="settings" size={24} color="#5B5E6F" />
+            </Button>
+            <Button onTouchEnd={() => update()}>
+              <Icon name="update" size={24} color="#5B5E6F" />
+            </Button>
+          </ButtonsWrap>
         </Toolbar>
         <FiltersWrap horizontal>
           <FilterItem>Сериалы</FilterItem>

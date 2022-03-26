@@ -35,7 +35,7 @@ export const ProgramView = (): JSX.Element | null => {
   const photos =
     program?.photo
       ?.split(',')
-      .map(photo => `http://tvget.ru/tvgate/mv/zh9d3x6v/progimg/${photo}`) ??
+      .map(photo => `https://tvget.ru/tvgate/mv/zh9d3x6v/progimg/${photo}`) ??
     [];
 
   const [selectedPhoto, setPhoto] = React.useState(photos[0]);

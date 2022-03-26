@@ -1,7 +1,15 @@
 import React from 'react';
 import {Modal, Pressable, useWindowDimensions} from 'react-native';
+import {useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {useQuery} from '@apollo/client';
+import {Filters} from '../../../../gql/types';
+import {getFiltersQuery} from '../../../../gql/queries/getFiltersQuery.graphql';
+import {
+  setChannelsList,
+  setTypesList,
+} from '../../../../store/filters/filtersSlice';
 import {ChannelTab} from './components/ChannelTab';
 import {TypesTab} from './components/TypesTab';
 import {Container, HeadWrap, Title} from './styled';
@@ -24,6 +32,18 @@ export const SettingsModal = (props: Props): JSX.Element => {
     {key: 'types', title: 'Категории'},
   ]);
   const layout = useWindowDimensions();
+  const dispatch = useDispatch();
+
+  const {data} = useQuery<Filters, null>(getFiltersQuery);
+
+  React.useEffect(() => {
+    const channels = data?.channels;
+    const types = data?.types ?? [];
+    const channelsList = channels?.map(channel => channel.id) ?? [];
+
+    dispatch(setChannelsList(channelsList));
+    dispatch(setTypesList(types));
+  }, [data?.channels, data?.types, dispatch]);
 
   return (
     <Modal animationType="slide" visible={isVisible} onRequestClose={onClose}>

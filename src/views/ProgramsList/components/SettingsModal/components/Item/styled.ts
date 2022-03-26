@@ -11,5 +11,6 @@ export const ItemWrap = styled.View`
 
 export const Title = styled.Text`
   font-size: 18px;
+  width: 90%;
   color: #ffffff;
 `;

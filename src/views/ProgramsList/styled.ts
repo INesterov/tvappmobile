@@ -34,3 +34,12 @@ export const DaysWrap = styled.ScrollView`
   width: 100%;
   margin-top: 24px;
 `;
+
+export const ButtonsWrap = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Button = styled.Pressable`
+  margin-left: 16px;
+`;
