@@ -9,6 +9,7 @@ import {getFiltersQuery} from '../../../../gql/queries/getFiltersQuery.graphql';
 import {
   setChannelsList,
   setTypesList,
+  resetFilters,
 } from '../../../../store/filters/filtersSlice';
 import {ChannelTab} from './components/ChannelTab';
 import {TypesTab} from './components/TypesTab';
@@ -65,12 +66,15 @@ export const SettingsModal = (props: Props): JSX.Element => {
             <TabBar
               {...tabProps}
               style={{backgroundColor: '#2d2c3c'}}
-              labelStyle={{fontSize: 12}}
+              labelStyle={{fontSize: 10}}
               indicatorStyle={{backgroundColor: '#FB6580'}}
             />
           )}
           initialLayout={{width: layout.width}}
         />
+        <Button onPress={() => dispatch(resetFilters())}>
+          <ButtonText>Сбросить фильтры</ButtonText>
+        </Button>
         <Button onPress={onClose}>
           <ButtonText>Сохранить</ButtonText>
         </Button>

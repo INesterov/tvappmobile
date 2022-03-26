@@ -8,7 +8,7 @@ export const ItemWrap = styled.View`
 `;
 
 export const ProgramInfo = styled.View`
-  height: 80px;
+  height: 90px;
   width: 100%;
   background-color: rgba(0, 0, 0, 1);
   margin-top: auto;
