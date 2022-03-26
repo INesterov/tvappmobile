@@ -12,7 +12,9 @@ import {ProgramsVariables, Programs, UpdatePrograms} from '../../gql/types';
 import {programsQuery} from '../../gql/queries/getProgramsQuery.graphql';
 import {updatePrograms} from '../../gql/mutations/updateProgramMutation.graphql';
 import {H1} from '../../uikit';
+import {channelsMap} from '../../constants/channels';
 import {ProgramItem} from './components/ProgramItem';
+import {Skeleton} from './components/Skeleton';
 import {DaySelect} from './components/DaySelect';
 import {
   Container,
@@ -34,7 +36,7 @@ export const ProgramList = (): JSX.Element | null => {
     'd MMMM',
     {locale: ruLocale},
   );
-  const {data} = useQuery<Programs, ProgramsVariables>(programsQuery, {
+  const {data, loading} = useQuery<Programs, ProgramsVariables>(programsQuery, {
     variables: {day: selectedDay, type, channelId},
   });
 
@@ -55,28 +57,20 @@ export const ProgramList = (): JSX.Element | null => {
           </ButtonsWrap>
         </Toolbar>
         <FiltersWrap horizontal>
-          <FilterItem>Сериалы</FilterItem>
-          <FilterItem>Реалити шоу</FilterItem>
-          <FilterItem>Ужасы</FilterItem>
-          <FilterItem>Сериалы</FilterItem>
-          <FilterItem>Реалити шоу</FilterItem>
-          <FilterItem>Ужасы</FilterItem>
-          <FilterItem>Сериалы</FilterItem>
-          <FilterItem>Реалити шоу</FilterItem>
-          <FilterItem>Ужасы</FilterItem>
-          <FilterItem>Сериалы</FilterItem>
-          <FilterItem>Реалити шоу</FilterItem>
-          <FilterItem>Ужасы</FilterItem>
-          <FilterItem>Сериалы</FilterItem>
-          <FilterItem>Реалити шоу</FilterItem>
-          <FilterItem>Ужасы</FilterItem>
-          <FilterItem>Сериалы</FilterItem>
-          <FilterItem>Реалити шоу</FilterItem>
-          <FilterItem>Ужасы</FilterItem>
-          <FilterItem>Сериалы</FilterItem>
-          <FilterItem>Реалити шоу</FilterItem>
-          <FilterItem>Ужасы</FilterItem>
+          {channelId.map(channel => (
+            <FilterItem>{channelsMap[channel]}</FilterItem>
+          ))}
+          {type.map(value => (
+            <FilterItem>{value}</FilterItem>
+          ))}
         </FiltersWrap>
+        {loading ? (
+          <>
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </>
+        ) : null}
         {data?.programs ? (
           <FlatList
             data={data.programs}

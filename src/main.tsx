@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {SafeAreaView} from 'react-native';
 import {ModalEnum} from './store/modals/type';
 import {closeModal} from './store/modals/modalSlice';
 import {SettingsModal} from './views/ProgramsList/components/SettingsModal';
@@ -12,12 +13,12 @@ export const Main = (): JSX.Element => {
   const isVisibleSettingsModal = modalType === ModalEnum.SETTING;
 
   return (
-    <>
+    <SafeAreaView>
       <SettingsModal
         isVisible={isVisibleSettingsModal}
         onClose={() => dispatch(closeModal())}
       />
       <Router />
-    </>
+    </SafeAreaView>
   );
 };

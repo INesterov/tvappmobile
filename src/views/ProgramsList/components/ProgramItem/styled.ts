@@ -8,7 +8,7 @@ export const ItemWrap = styled.View`
 `;
 
 export const ProgramInfo = styled.View`
-  height: 68px;
+  height: 80px;
   width: 100%;
   background-color: rgba(0, 0, 0, 1);
   margin-top: auto;
@@ -21,14 +21,11 @@ export const ProgramInfo = styled.View`
 export const Channel = styled.Text`
   font-size: 14px;
   color: #fb6580;
-  margin-left: 8px;
 `;
 
 export const Head = styled.View`
-  flex-direction: row;
-  align-items: flex-end;
   margin-bottom: 4px;
-  width: 80%;
+  width: 90%;
 `;
 
 export const TitleWrap = styled.View`

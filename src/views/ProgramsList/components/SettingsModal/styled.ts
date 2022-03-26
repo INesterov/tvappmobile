@@ -16,3 +16,19 @@ export const Title = styled.Text`
   color: #ffffff;
   margin-left: 8px;
 `;
+
+export const Button = styled.TouchableOpacity`
+  width: 100%;
+  background-color: #fb6580;
+  padding: 16px;
+  margin-top: 16px;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+`;
