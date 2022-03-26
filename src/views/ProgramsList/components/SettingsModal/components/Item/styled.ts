@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const ItemWrap = styled.View`
   flex-direction: row;
-  padding: 12px;
+  padding: 12px 16px;
   background-color: #181a26;
   justify-content: space-between;
   align-items: center;

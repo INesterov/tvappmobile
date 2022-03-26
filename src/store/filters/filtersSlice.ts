@@ -38,8 +38,18 @@ export const filtersSlice = createSlice({
     setTypesList: (state, action: PayloadAction<string[]>) => {
       state.typesList = action.payload;
     },
+    resetFilters: state => {
+      state.channelId = initialState.channelId;
+      state.type = initialState.type;
+    },
   },
 });
 
-export const {setDay, setChannels, setTypes, setChannelsList, setTypesList} =
-  filtersSlice.actions;
+export const {
+  setDay,
+  setChannels,
+  setTypes,
+  setChannelsList,
+  setTypesList,
+  resetFilters,
+} = filtersSlice.actions;

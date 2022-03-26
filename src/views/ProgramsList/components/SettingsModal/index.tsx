@@ -9,10 +9,12 @@ import {getFiltersQuery} from '../../../../gql/queries/getFiltersQuery.graphql';
 import {
   setChannelsList,
   setTypesList,
+  resetFilters,
 } from '../../../../store/filters/filtersSlice';
 import {ChannelTab} from './components/ChannelTab';
 import {TypesTab} from './components/TypesTab';
-import {Container, HeadWrap, Title} from './styled';
+import {TimeTab} from './components/TimeTab';
+import {Container, HeadWrap, Title, Button, ButtonText} from './styled';
 
 type Props = {
   isVisible: boolean;
@@ -22,6 +24,7 @@ type Props = {
 const renderScene = SceneMap({
   channels: ChannelTab,
   types: TypesTab,
+  time: TimeTab,
 });
 
 export const SettingsModal = (props: Props): JSX.Element => {
@@ -30,6 +33,7 @@ export const SettingsModal = (props: Props): JSX.Element => {
   const [routes] = React.useState([
     {key: 'channels', title: 'Каналы'},
     {key: 'types', title: 'Категории'},
+    {key: 'time', title: 'Время'},
   ]);
   const layout = useWindowDimensions();
   const dispatch = useDispatch();
@@ -62,11 +66,18 @@ export const SettingsModal = (props: Props): JSX.Element => {
             <TabBar
               {...tabProps}
               style={{backgroundColor: '#2d2c3c'}}
+              labelStyle={{fontSize: 10}}
               indicatorStyle={{backgroundColor: '#FB6580'}}
             />
           )}
           initialLayout={{width: layout.width}}
         />
+        <Button onPress={() => dispatch(resetFilters())}>
+          <ButtonText>Сбросить фильтры</ButtonText>
+        </Button>
+        <Button onPress={onClose}>
+          <ButtonText>Сохранить</ButtonText>
+        </Button>
       </Container>
     </Modal>
   );

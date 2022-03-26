@@ -32,16 +32,25 @@ export const ProgramView = (): JSX.Element | null => {
 
   const program = data?.program;
 
-  const photos =
-    program?.photo
-      ?.split(',')
-      .map(photo => `https://tvget.ru/tvgate/mv/zh9d3x6v/progimg/${photo}`) ??
-    [];
+  const photos = React.useMemo(() => {
+    return (
+      program?.photo
+        ?.split(',')
+        .map(photo => `https://tvget.ru/tvgate/mv/zh9d3x6v/progimg/${photo}`) ??
+      []
+    );
+  }, [program?.photo]);
 
   const [selectedPhoto, setPhoto] = React.useState(photos[0]);
   const date = program?.from ? fromUnixTime(Number(program.from)) : new Date();
   const day = format(date, 'd MMMM', {locale: ruLocale});
   const time = format(date, 'HH:mm', {locale: ruLocale});
+
+  React.useEffect(() => {
+    if (photos[0] && !selectedPhoto) {
+      setPhoto(photos[0]);
+    }
+  }, [photos, selectedPhoto]);
 
   return (
     <ScrollView>
